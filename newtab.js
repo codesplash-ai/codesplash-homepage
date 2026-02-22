@@ -913,7 +913,7 @@ class Homepage {
             document.getElementById('backgroundChooseButton').textContent = 'Custom background image set';
             this.updateBackgroundPreviewFromId(mainFolder.backgroundImageId);
         } else {
-            document.getElementById('backgroundChooseButton').textContent = 'Using default gradient';
+            document.getElementById('backgroundChooseButton').textContent = 'Using default background';
             this.updateBackgroundPreview(null);
         }
         
@@ -1068,8 +1068,10 @@ class Homepage {
 
     applyDefaultBackground() {
         const body = document.body;
-        body.style.backgroundImage = '';
-        body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+        body.style.backgroundImage = 'url(backgrounds/blue-body-water.jpg)';
+        body.style.backgroundSize = 'cover';
+        body.style.backgroundPosition = 'center';
+        body.style.backgroundAttachment = 'fixed';
     }
 
     applySettings() {
