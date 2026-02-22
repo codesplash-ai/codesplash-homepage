@@ -1,18 +1,19 @@
 class PopupManager {
     constructor() {
+        this.storage = new StorageManager();
         this.init();
     }
 
     async init() {
+        await this.storage.initialize();
         await this.loadStats();
         this.setupEventListeners();
     }
 
     async loadStats() {
         try {
-            const result = await chrome.storage.local.get(['bookmarks', 'lastUpdated']);
-            const bookmarks = result.bookmarks || [];
-            const lastUpdated = result.lastUpdated;
+            const bookmarks = await this.storage.get('bookmarks') || [];
+            const lastUpdated = await this.storage.get('metadata', 'lastUpdated');
 
             // Update bookmark count
             document.getElementById('bookmarkCount').textContent = bookmarks.length;
@@ -57,20 +58,19 @@ class PopupManager {
     async addBookmarkFromTab(tab) {
         try {
             // Get existing bookmarks
-            const result = await chrome.storage.local.get(['bookmarks']);
-            const bookmarks = result.bookmarks || [];
-            
+            const bookmarks = await this.storage.get('bookmarks') || [];
+
             // Check if bookmark already exists
             const existingBookmark = bookmarks.find(bookmark => bookmark.url === tab.url);
             if (existingBookmark) {
                 this.showMessage('Bookmark already exists!');
                 return;
             }
-            
+
             // Get favicon URL
             const domain = new URL(tab.url).hostname;
             const favicon = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
-            
+
             // Create new bookmark
             const newBookmark = {
                 id: Date.now().toString(),
@@ -79,20 +79,19 @@ class PopupManager {
                 icon: favicon,
                 customIcon: false,
                 iconFilename: null,
+                folderId: 'main',
                 order: bookmarks.length
             };
-            
+
             // Add to bookmarks array
             bookmarks.push(newBookmark);
-            
-            // Save to storage with timestamp
-            await chrome.storage.local.set({ 
-                bookmarks,
-                lastUpdated: Date.now()
-            });
-            
+
+            // Save to IndexedDB with timestamp
+            await this.storage.set('bookmarks', bookmarks);
+            await this.storage.set('metadata', Date.now(), 'lastUpdated');
+
             this.showMessage('Bookmark added successfully!');
-            
+
         } catch (error) {
             console.error('Error adding bookmark:', error);
             this.showMessage('Error adding bookmark');

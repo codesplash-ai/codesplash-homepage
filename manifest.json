@@ -3,16 +3,12 @@
   "name": "CodeSplash Homepage",
   "version": "1.0.0",
   "author": "Kurtis Pritchard",
-  "description": "A chrome extension homepage wtih customizable bookmarks, icons, background images, and tabs.",
+  "description": "Replace your new tab page with a customizable homepage featuring bookmarks, folders, custom icons, and background images.",
   "permissions": [
     "storage",
     "unlimitedStorage",
     "contextMenus",
-    "tabs"
-  ],
-  "host_permissions": [
-    "https://*/*",
-    "http://*/*"
+    "activeTab"
   ],
   "chrome_url_overrides": {
     "newtab": "newtab.html"
