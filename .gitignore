@@ -1,1 +1,11 @@
 .DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Logs
+exports/
+
+# Claude Docs
+docs/
