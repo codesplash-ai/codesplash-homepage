@@ -3,7 +3,7 @@
   "name": "CodeSplash Homepage",
   "version": "1.0.0",
   "author": "Kurtis Pritchard",
-  "description": "A chrome homepage wtih customizable bookmarks, icons, background images, and tabs.",
+  "description": "A chrome extension homepage wtih customizable bookmarks, icons, background images, and tabs.",
   "permissions": [
     "storage",
     "unlimitedStorage",
