@@ -374,5 +374,5 @@ class StorageManager {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = StorageManager;
 } else {
-    window.StorageManager = StorageManager;
+    globalThis.StorageManager = StorageManager;
 }
