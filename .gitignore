@@ -9,3 +9,6 @@ exports/
 
 # Claude Docs
 docs/
+
+# Build artifacts
+*.zip
