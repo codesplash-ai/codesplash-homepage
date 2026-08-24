@@ -1,8 +1,13 @@
 // Background script for Chrome extension
 importScripts('storage-manager.js');
 
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener((details) => {
     console.log('CodeSplash Homepage extension installed');
+
+    // Flag an update so the new tab page can show what's new
+    if (details.reason === 'update' && details.previousVersion) {
+        chrome.storage.local.set({ whatsNewPendingFrom: details.previousVersion });
+    }
 
     // Create context menu items
     chrome.contextMenus.create({

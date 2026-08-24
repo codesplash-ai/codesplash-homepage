@@ -44,7 +44,10 @@ class Homepage {
             window.addEventListener('resize', () => {
                 this.applyGridSettings();
             });
-            
+
+            // Show what's new after an extension update (non-blocking)
+            this.checkWhatsNew();
+
             // Show storage usage info
             const usage = await this.storage.getStorageUsage();
             if (usage) {
@@ -372,6 +375,16 @@ class Homepage {
                     modal.style.display = 'none';
                 }
             });
+        });
+
+        // What's new modal dismissal
+        document.getElementById('dismissWhatsNew').addEventListener('click', () => {
+            this.dismissWhatsNew();
+        });
+        document.getElementById('whatsNewModal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                this.dismissWhatsNew();
+            }
         });
     }
 
@@ -1340,6 +1353,113 @@ class Homepage {
         errorDiv.innerHTML = `<div>${message}</div>`;
         errorDiv.appendChild(errorButton);
         document.body.appendChild(errorDiv);
+    }
+
+    compareVersions(a, b) {
+        const aParts = String(a).split('.').map(Number);
+        const bParts = String(b).split('.').map(Number);
+        for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
+            const diff = (aParts[i] || 0) - (bParts[i] || 0);
+            if (diff !== 0) {
+                return diff;
+            }
+        }
+        return 0;
+    }
+
+    async checkWhatsNew() {
+        try {
+            const currentVersion = chrome.runtime.getManifest().version;
+            const stored = await chrome.storage.local.get(['whatsNewPendingFrom', 'lastSeenVersion']);
+
+            if (!stored.whatsNewPendingFrom) {
+                // First run: baseline silently, no modal
+                if (!stored.lastSeenVersion) {
+                    await chrome.storage.local.set({ lastSeenVersion: currentVersion });
+                }
+                return;
+            }
+
+            const lastSeen = stored.lastSeenVersion || stored.whatsNewPendingFrom;
+            const response = await fetch('https://codesplash.ai/updates/feed/homepage');
+            if (!response.ok) {
+                return;
+            }
+            const feed = await response.json();
+            const entries = (feed.entries || [])
+                .filter(entry =>
+                    this.compareVersions(entry.version, lastSeen) > 0 &&
+                    this.compareVersions(entry.version, currentVersion) <= 0
+                )
+                .sort((a, b) => this.compareVersions(b.version, a.version));
+
+            if (entries.length === 0) {
+                await this.dismissWhatsNew();
+                return;
+            }
+
+            this.renderWhatsNewEntries(entries);
+            document.getElementById('whatsNewModal').style.display = 'flex';
+        } catch (error) {
+            // Feed unreachable — try again on the next update check
+        }
+    }
+
+    renderWhatsNewEntries(entries) {
+        const container = document.getElementById('whatsNewEntries');
+        container.innerHTML = '';
+
+        entries.forEach(entry => {
+            const section = document.createElement('div');
+            section.style.marginBottom = '20px';
+
+            const heading = document.createElement('div');
+            heading.style.cssText = 'font-size: 16px; font-weight: 600; margin-bottom: 8px;';
+            heading.textContent = `${entry.version} — ${entry.date}`;
+            section.appendChild(heading);
+
+            if (entry.summary) {
+                const summary = document.createElement('p');
+                summary.style.cssText = 'margin: 0 0 8px; font-size: 14px; color: rgba(255,255,255,0.9);';
+                summary.textContent = entry.summary;
+                section.appendChild(summary);
+            }
+
+            if (entry.highlights && entry.highlights.length) {
+                const list = document.createElement('ul');
+                list.style.cssText = 'margin: 0 0 8px; padding-left: 20px; font-size: 14px; color: rgba(255,255,255,0.9);';
+                entry.highlights.forEach(highlight => {
+                    const item = document.createElement('li');
+                    item.textContent = highlight;
+                    list.appendChild(item);
+                });
+                section.appendChild(list);
+            }
+
+            (entry.screenshots || []).forEach(screenshot => {
+                if (!screenshot.src || !screenshot.src.startsWith('https://')) {
+                    return;
+                }
+                const img = document.createElement('img');
+                img.src = screenshot.src;
+                img.alt = screenshot.alt || '';
+                img.style.cssText = 'max-width: 100%; border-radius: 6px; margin: 4px 0;';
+                img.onerror = () => img.remove();
+                section.appendChild(img);
+            });
+
+            container.appendChild(section);
+        });
+    }
+
+    async dismissWhatsNew() {
+        document.getElementById('whatsNewModal').style.display = 'none';
+        try {
+            await chrome.storage.local.set({ lastSeenVersion: chrome.runtime.getManifest().version });
+            await chrome.storage.local.remove('whatsNewPendingFrom');
+        } catch (error) {
+            console.error('Error saving what\'s new state:', error);
+        }
     }
 
     async updateStorageUsageDisplay() {
