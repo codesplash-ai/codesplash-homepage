@@ -29,20 +29,18 @@ are data and images, not executable code.
 
 **User Data Collection**
 
-All answers: No
-- Personally identifiable information 
-- Health information
-- Financial and payment information
-- Authentication information
-- Personal communications
-- Location
-- Web history
-- User activity
-- Website content
+Select these categories to disclose actual data handling, including local storage:
+- Web history: URLs and titles of pages the user chooses to bookmark; no background history monitoring.
+- Website content: saved links, titles, icons, and user-uploaded images used by the homepage.
+- Location: IP addresses exposed to servers by favicon and release-note requests; no GPS/device-location access.
 
-Bookmarks, settings, and uploaded images are stored locally. Favicon requests include the bookmarked
-site's domain. Release-note requests include no bookmarks, browsing history, or account identifier.
-The receiving servers see ordinary connection information, such as the IP address.
+Leave other categories unchecked. Bookmarks, settings, and uploaded images are stored locally.
+Favicon requests include bookmarked domains. Release-note requests include no bookmarks,
+browsing history, or account identifier. These declarations describe existing behavior;
+they do not add tracking or data collection code.
+
+Reference: https://developer.chrome.com/docs/webstore/program-policies/user-data-faq
+(question 3 requires disclosure even for locally processed or stored data).
 
 **Certification**
 

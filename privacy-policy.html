@@ -300,6 +300,7 @@
                 <li>Custom icons uploaded by you</li>
                 <li>Background images uploaded by you</li>
                 <li>Layout and display settings</li>
+                <li>Installed version and pending release-note state</li>
             </ul>
             <p>Your bookmark collection, settings, and uploaded images are not uploaded, synced, or backed up to an external server. A bookmarked site's domain is used to request its favicon, as described below.</p>
         </div>
@@ -308,7 +309,7 @@
             <h2>What We Don't Do</h2>
             <div class="detail-grid">
                 <div class="detail-row">
-                    <div class="detail-label">Collect personal data</div>
+                    <div class="detail-label">Request your name or email</div>
                     <div class="detail-value"><span class="badge-no">No</span></div>
                 </div>
                 <div class="detail-row">
@@ -324,7 +325,7 @@
                     <div class="detail-value"><span class="badge-no">No</span></div>
                 </div>
                 <div class="detail-row">
-                    <div class="detail-label">Share data with third parties</div>
+                    <div class="detail-label">Sell user data</div>
                     <div class="detail-value"><span class="badge-no">No</span></div>
                 </div>
                 <div class="detail-row">
@@ -338,8 +339,14 @@
             <h2>External Requests</h2>
             <div class="note">
                 <p><strong>Favicon fetching:</strong> The extension requests favicon images from Google's public favicon service (<code>google.com/s2/favicons</code>) using each bookmarked site's domain.</p>
-                <p><strong>Release notes:</strong> After an extension update, the new-tab page requests public release notes from <code>codesplash.ai/updates/feed/homepage</code>. This request contains no bookmark data, browsing history, or account identifier. Optional release-note images are fetched when displayed. Network requests expose ordinary connection information, such as your IP address, to the receiving server.</p>
+                <p><strong>Release notes:</strong> After an extension update, the new-tab page requests public release notes from <code>codesplash.ai/updates/feed/homepage</code>. This request contains no bookmark data, browsing history, or account identifier. Optional release-note images are fetched when displayed. Network requests expose ordinary connection information, such as your IP address, to the receiving server. The extension does not request GPS or device-location access.</p>
             </div>
+        </div>
+
+        <div class="section">
+            <h2>How Data Is Used</h2>
+            <p>Locally stored URLs, titles, and images are used to display and manage the bookmarks you choose to save. Favicon requests provide bookmark icons; public release-note requests provide update information. This includes local handling of web history and website content, and IP addresses exposed by those network requests. The extension does not monitor your browsing history in the background.</p>
+            <p>Our use of information received from Google APIs follows the Chrome Web Store User Data Policy, including its Limited Use requirements. Data is used only for the extension's described features, not advertising, sale, or credit decisions.</p>
         </div>
 
         <div class="section">
