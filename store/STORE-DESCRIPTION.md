@@ -17,7 +17,7 @@ Features:
 - Toolbar popup for adding the current page in one click
 - Sort bookmarks alphabetically within any folder
 
-All data is stored locally in your browser using IndexedDB. Nothing is sent to a server. No account required, no tracking, no data collection.
+Your bookmarks, settings, and uploaded images are stored locally in your browser using IndexedDB. The extension fetches website favicons and public release notes after updates; it does not upload your bookmark collection or browsing history. No account required.
 
 Lightweight and fast — the homepage loads instantly every time you open a new tab.
 ```

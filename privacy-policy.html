@@ -279,11 +279,11 @@
 
         <div class="title-block">
             <h1>Privacy Policy</h1>
-            <span class="effective-date">Effective February 22, 2026</span>
+            <span class="effective-date">Effective September 26, 2026</span>
         </div>
 
         <div class="summary-card">
-            <p>CodeSplash Homepage stores all data locally on your device. Nothing is collected, transmitted, or shared with anyone.</p>
+            <p>CodeSplash Homepage stores your bookmarks, settings, and uploaded images locally on your device. It requests website favicons and public release notes as described below, without uploading your bookmark collection or browsing history.</p>
         </div>
 
         <div class="section">
@@ -301,7 +301,7 @@
                 <li>Background images uploaded by you</li>
                 <li>Layout and display settings</li>
             </ul>
-            <p>This data never leaves your device. It is not uploaded, synced, or backed up to any external server.</p>
+            <p>Your bookmark collection, settings, and uploaded images are not uploaded, synced, or backed up to an external server. A bookmarked site's domain is used to request its favicon, as described below.</p>
         </div>
 
         <div class="section">
@@ -328,7 +328,7 @@
                     <div class="detail-value"><span class="badge-no">No</span></div>
                 </div>
                 <div class="detail-row">
-                    <div class="detail-label">Transmit data externally</div>
+                    <div class="detail-label">Upload your bookmark collection</div>
                     <div class="detail-value"><span class="badge-no">No</span></div>
                 </div>
             </div>
@@ -337,7 +337,8 @@
         <div class="section">
             <h2>External Requests</h2>
             <div class="note">
-                <p><strong>Favicon fetching:</strong> When you add a bookmark, the extension requests a favicon image from Google's public favicon service (<code>google.com/s2/favicons</code>) using the bookmarked site's domain. No other data is sent in this request. This is the only network request the extension makes.</p>
+                <p><strong>Favicon fetching:</strong> The extension requests favicon images from Google's public favicon service (<code>google.com/s2/favicons</code>) using each bookmarked site's domain.</p>
+                <p><strong>Release notes:</strong> After an extension update, the new-tab page requests public release notes from <code>codesplash.ai/updates/feed/homepage</code>. This request contains no bookmark data, browsing history, or account identifier. Optional release-note images are fetched when displayed. Network requests expose ordinary connection information, such as your IP address, to the receiving server.</p>
             </div>
         </div>
 

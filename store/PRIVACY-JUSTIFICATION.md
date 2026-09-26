@@ -6,7 +6,7 @@ Copy the text inside the code block below into the Chrome Web Store listing desc
 **Single Purpose Description**: CodeSplash Homepage replaces your new tab page with a customizable homepage where you can organize your favorite bookmarks with custom icons, folders, and background images.
 
 **Storage**: CodeSplash Homepage stores user-created bookmarks, folder organization, layout preferences,
-and custom icons locally on the device using IndexedDB. No data is transmitted externally.
+and custom icons locally on the device using IndexedDB. The bookmark collection and uploaded images are not uploaded to a server.
 
 **Unlimited Storage**: Users can upload custom background images and bookmark icons, which are stored as
 binary Blobs in IndexedDB. The default storage limit is insufficient for multiple high-resolution
@@ -22,9 +22,10 @@ current tab's URL and title to create the bookmark entry. No other tab data is a
 **Remote Code**
 
 No. All JavaScript is bundled within the extension package. There are no external script tags, no
-references to external modules, no eval(), and no WebAssembly. The only external request is fetching
-favicons from Google's favicon API (https://www.google.com/s2/favicons), which returns image data, not
-executable code.
+references to external modules, no eval(), and no WebAssembly. External requests fetch
+favicons from Google's favicon API (https://www.google.com/s2/favicons), public release-note JSON
+from https://codesplash.ai/updates/feed/homepage, and optional release-note images. These responses
+are data and images, not executable code.
 
 **User Data Collection**
 
@@ -39,13 +40,14 @@ All answers: No
 - User activity
 - Website content
 
-All data (bookmarks, settings, images) is stored locally on the user's device only. The only network
-request is fetching website favicons from Google, which sends only the domain name.
+Bookmarks, settings, and uploaded images are stored locally. Favicon requests include the bookmarked
+site's domain. Release-note requests include no bookmarks, browsing history, or account identifier.
+The receiving servers see ordinary connection information, such as the IP address.
 
 **Certification**
 
-  You can truthfully certify all three:
-- I do not sell or transfer user data to third parties — All data stays on-device.
+Review the store certification against the request behavior described above:
+- I do not sell user data. The extension requests favicons from Google using bookmarked domains; see the external-request disclosure above.
 - I do not use or transfer user data for unrelated purposes — Data is only used to display the user's
 custom homepage.
 - I do not use or transfer user data to determine creditworthiness or for lending purposes — Not

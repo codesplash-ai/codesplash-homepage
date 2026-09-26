@@ -1394,6 +1394,11 @@ class Homepage {
                 .sort((a, b) => this.compareVersions(b.version, a.version));
 
             if (entries.length === 0) {
+                // The store update can arrive before the website feed rebuild.
+                // Keep the pending version so the next new tab can retry.
+                if (!feed.latestVersion || this.compareVersions(feed.latestVersion, currentVersion) < 0) {
+                    return;
+                }
                 await this.dismissWhatsNew();
                 return;
             }
