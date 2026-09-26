@@ -5,8 +5,7 @@ Copy the text inside the code block below into the Chrome Web Store listing desc
 ```
 **Single Purpose Description**: CodeSplash Homepage replaces your new tab page with a customizable homepage where you can organize your favorite bookmarks with custom icons, folders, and background images.
 
-**Storage**: CodeSplash Homepage stores user-created bookmarks, folder organization, layout preferences,
-and custom icons locally on the device using IndexedDB. The bookmark collection and uploaded images are not uploaded to a server.
+**Storage**: CodeSplash Homepage stores bookmarks, folders, settings, and uploaded images locally in IndexedDB. chrome.storage.local stores the installed version and pending release-note state. The bookmark collection and uploaded images are not uploaded. Favicon requests use bookmarked domains; public release-note requests contain no bookmarks or browsing history.
 
 **Unlimited Storage**: Users can upload custom background images and bookmark icons, which are stored as
 binary Blobs in IndexedDB. The default storage limit is insufficient for multiple high-resolution
