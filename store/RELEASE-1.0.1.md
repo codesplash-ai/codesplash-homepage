@@ -14,4 +14,5 @@ SHA256: `d820651d7443f54b8b2cee6535b2f2d24f8fb8754baaeb4dce18e6e7b3cfbb7a`.
 Distribution remains pending Chrome Web Store sign-in, upload, and review.
 Update the store description using STORE-DESCRIPTION.md and verify privacy
 answers using PRIVACY-JUSTIFICATION.md and the live privacy policy. Add the
-1.0.1 public website feed entry when the store release becomes available.
+1.0.1 public website feed entry from UPDATE-FEED-1.0.1.json when the store release
+becomes available; set its date to the actual publication date.

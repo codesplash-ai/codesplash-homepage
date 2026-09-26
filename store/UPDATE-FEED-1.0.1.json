@@ -1,0 +1,23 @@
+{
+  "product": "homepage",
+  "version": "1.0.1",
+  "date": "2026-09-26",
+  "summary": "CodeSplash Homepage now shows release notes after extension updates and includes links to the CodeSplash product family.",
+  "highlights": [
+    "See what's new after an extension update.",
+    "Explore other CodeSplash products from your homepage.",
+    "Retry release notes when the public feed has not caught up yet."
+  ],
+  "categories": {
+    "features": [
+      "Added an in-page release-notes dialog.",
+      "Added More from CodeSplash links."
+    ],
+    "fixes": [
+      "Preserve pending release notes until they are available."
+    ],
+    "improvements": [
+      "Clarified favicon and public release-note requests in the privacy disclosure."
+    ]
+  }
+}
