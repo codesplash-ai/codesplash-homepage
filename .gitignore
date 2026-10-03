@@ -12,3 +12,5 @@ docs/
 
 # Build artifacts
 *.zip
+__pycache__/
+*.py[cod]

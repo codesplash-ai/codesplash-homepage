@@ -1,0 +1,47 @@
+name: Report verified Chrome publication
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      source_sha:
+        description: Exact source of the package already submitted to the Chrome Store
+        type: string
+        required: true
+      validate_only:
+        description: Verify the public package without sending a shipment event
+        type: boolean
+        default: true
+permissions:
+  contents: read
+  deployments: write
+concurrency:
+  group: homepage-publication
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with: {fetch-depth: 0}
+      - name: Verify the current public package and report one successful shipment
+        id: publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ inputs.source_sha || github.sha }}
+          VALIDATE_ONLY: ${{ github.event_name == 'workflow_dispatch' && inputs.validate_only }}
+        run: |
+          args=(--source-sha "$SOURCE_SHA")
+          if [ "$VALIDATE_ONLY" = true ]; then args+=(--validate-only); fi
+          python3 scripts/report-store-publication.py "${args[@]}"
+      - name: Explain a pending Store rollout
+        if: steps.publication.outputs.published == 'false'
+        run: echo '::notice::The selected source is not the public Chrome package yet. No successful deployment or Marketing event was sent. After Store publication, report this same source once; do not upload or rebuild again.'
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: homepage-publication-proof
+          path: publication-proof.json
+          if-no-files-found: ignore
+          retention-days: 7

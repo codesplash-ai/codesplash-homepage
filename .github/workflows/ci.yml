@@ -1,0 +1,26 @@
+name: Homepage CI
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: homepage-ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: {node-version: 24}
+      - name: Verify extension code and release behavior locally
+        run: |
+          node --check background.js
+          node --check newtab.js
+          node --check popup.js
+          node --check storage-manager.js
+          node --test tests/*.test.cjs
+          python3 -m unittest discover -s tests -p '*_test.py'
