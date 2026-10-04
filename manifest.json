@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "CodeSplash Homepage",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Kurtis Pritchard",
   "description": "Replace your new tab page with a customizable homepage featuring bookmarks, folders, custom icons, and background images.",
   "permissions": [

@@ -32,7 +32,7 @@ def source_files(sha):
     if not re.fullmatch(r'[a-f0-9]{40}', sha):
         raise ValueError('Exact source SHA required')
     names = run('git', ['ls-tree', '-r', '--name-only', sha]).splitlines()
-    selected = [name for name in names if name in ROOT_FILES or name.startswith(('icons/', 'backgrounds/'))]
+    selected = [name for name in names if name in ROOT_FILES or name == 'theme.css' or name.startswith(('icons/', 'backgrounds/'))]
     if not ROOT_FILES.issubset(selected):
         raise ValueError('Source does not contain the complete Homepage package')
     return {name: subprocess.check_output(['git', 'show', f'{sha}:{name}'], timeout=30) for name in selected}

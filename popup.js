@@ -6,6 +6,8 @@ class PopupManager {
 
     async init() {
         await this.storage.initialize();
+        const settings = await this.storage.get('settings', 'main');
+        document.documentElement.dataset.theme = settings ? settings.theme || 'legacy' : 'ocean-heat-dark';
         await this.loadStats();
         this.setupEventListeners();
     }

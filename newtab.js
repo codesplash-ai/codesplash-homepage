@@ -5,6 +5,8 @@ class Homepage {
         this.folders = [];
         this.currentFolderId = 'main';
         this.settings = {
+            theme: 'ocean-heat-dark',
+            useThemeTitleColor: true,
             backgroundUrl: '',
             backgroundFile: null,
             backgroundFilename: null,
@@ -73,6 +75,8 @@ class Homepage {
             this.folders = await this.storage.get('folders') || [];
             const settings = await this.storage.get('settings', 'main');
             this.settings = { ...this.settings, ...settings };
+            // Existing installations retain their chosen appearance and title colors.
+            if (settings && !settings.theme) { this.settings.theme = 'legacy'; this.settings.useThemeTitleColor = false; }
             
         } catch (error) {
             console.error('Error loading data:', error);
@@ -908,6 +912,8 @@ class Homepage {
             return;
         }
 
+        document.getElementById('themeChoice').value = this.settings.theme;
+        document.getElementById('useThemeTitleColor').checked = this.settings.useThemeTitleColor;
         document.getElementById('iconSize').value = this.settings.iconSize;
         document.getElementById('titleSize').value = this.settings.titleSize;
         document.getElementById('titleColor').value = this.settings.titleColor;
@@ -993,6 +999,9 @@ class Homepage {
     }
 
     finalizeHomepageSettings() {
+        const theme = document.getElementById('themeChoice').value;
+        this.settings.theme = ['ocean-heat-dark', 'ocean-heat-light', 'legacy'].includes(theme) ? theme : 'ocean-heat-dark';
+        this.settings.useThemeTitleColor = document.getElementById('useThemeTitleColor').checked;
         this.settings.iconSize = parseInt(document.getElementById('iconSize').value);
         this.settings.titleSize = parseInt(document.getElementById('titleSize').value);
         this.settings.titleColor = document.getElementById('titleColor').value;
@@ -1081,13 +1090,14 @@ class Homepage {
 
     applyDefaultBackground() {
         const body = document.body;
-        body.style.backgroundImage = 'url(backgrounds/blue-body-water.jpg)';
+        body.style.backgroundImage = this.settings.theme === 'legacy' ? 'url(backgrounds/blue-body-water.jpg)' : 'none';
         body.style.backgroundSize = 'cover';
         body.style.backgroundPosition = 'center';
         body.style.backgroundAttachment = 'fixed';
     }
 
     applySettings() {
+        document.documentElement.dataset.theme = this.settings.theme;
         // Apply folder-specific background instead of global background
         this.applyFolderBackground();
 
@@ -1100,7 +1110,7 @@ class Homepage {
             }
             .bookmark-title {
                 font-size: ${this.settings.titleSize}px !important;
-                color: ${this.settings.titleColor} !important;
+                color: ${this.settings.useThemeTitleColor ? 'var(--foreground)' : this.settings.titleColor} !important;
             }
         `;
         

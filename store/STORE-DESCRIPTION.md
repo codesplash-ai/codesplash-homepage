@@ -8,6 +8,7 @@ CodeSplash Homepage replaces your Chrome new tab page with a clean, customizable
 Organize your most-visited sites into folder tabs and arrange them exactly how you want with drag-and-drop reordering. Upload your own icons for any bookmark, or let the extension fetch favicons automatically. Set a custom background image for the whole homepage or per individual folder.
 
 Features:
+- Ocean & Heat Dark and Light themes, with matching homepage and toolbar popup
 - Folder tabs to group bookmarks by project, category, or however you like
 - Drag and drop to reorder bookmarks, move them between folders, and rearrange folder tabs
 - Custom icons — upload any image, or use automatic favicons
