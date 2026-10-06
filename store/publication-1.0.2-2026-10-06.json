@@ -1,0 +1,33 @@
+{
+  "product": "homepage",
+  "sourceSha": "be3c35f17b82622c6dc303f81897fd1469817006",
+  "storeUrl": "https://chromewebstore.google.com/detail/bkgdbigpcjfeilehkieiocfoaebjcfdj",
+  "published": true,
+  "version": "1.0.2",
+  "packageSha256": "e8049cad6df07faa76a706f231fbe2a52768416d85eca7b0a10c58eab783ea3c",
+  "sourceFiles": {
+    "background.js": "dceda34cacad34b030305c07dbf45bfb5dcc2e33ac0f1ff63d1ad05f7b4cf332",
+    "backgrounds/blue-body-water.jpg": "b0ce7533c7ff85000fd0f961a83a02278f43a687a2ac3c4a3903f017827f8e3d",
+    "icons/icon-128.png": "72ce352266cb82050fec10eb668e2acbd8e0c9e2403f9309a9044af7793d0a86",
+    "icons/icon-16.png": "27e0c28a076f60ac9814419766b8e5570be79be1f8b7445e41ed7f13281893f3",
+    "icons/icon-32.png": "0ec3eb8106bbe04ce26bbb2f374cebf896006f7d5248dc160fa1702715bbbc42",
+    "icons/icon-48.png": "3e27d510a33022bd586306115da993ca533d8fca0d7692e8137d3bd9a806550a",
+    "manifest.json": "8cd8e699a8587ab63a63f6c8bf7c5a0e6e8f1b430d1af7678b53f09de6dff9e4",
+    "newtab.html": "713ed556d2e9fa11a4b7e39477c1e61f4a65465259c18b3f2ec4a7420530c115",
+    "newtab.js": "0d74b8e6b59b1ff612712d51ed90647ea6479d9409ff60e221e892140f419cea",
+    "popup.html": "72ff47f8e59cba1fca5c5a6a065e7052bbe5179e4a0b56b99d01cd9fe7815737",
+    "popup.js": "f1acfa0bd380c6ae68ad2d8023abb19809442c6c6f4a36d41d72f8c5e667504a",
+    "storage-manager.js": "2bf6163f91decb61956ef539736a463091538e719993ca11dd11af6a3b15c35d",
+    "theme.css": "50032af2becc9815790ce7a22d20a5699fbd174b688f6118a924fc3e6eed5ea1"
+  },
+  "observedAt": "2026-10-06T10:23:46.908550+00:00",
+  "reported": true,
+  "alreadyReported": false,
+  "deploymentId": 6881482484,
+  "listingUpdated": "October 4, 2026",
+  "listingUsers": 5,
+  "listingRating": 5,
+  "listingRatingCount": 1,
+  "marketingDeliveryRun": 37450529474,
+  "marketingConclusion": "success"
+}
